@@ -11,12 +11,6 @@
     gap: rem(16px);
   }
   
-  .layoutHeaderRight {
-    display: flex;
-    align-items: center;
-    gap: rem(16px);
-  }
-
   .headerTitleContainer {
     display: flex;
     align-items: center;
@@ -25,7 +19,25 @@
       cursor: pointer;
     }
   }
+  
+  .layoutHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: rem(16px);
+  }
 
+  .headerButton {
+    height: rem(32px);
+    width: rem(48px);
+    border-radius: rem(24px);
+    background-color: '#635FC7';
+  }
+
+  .headerButtonText {
+    font-size: rem(18px);
+    font-weight: bold;
+  }
+  
   .headerElipses:hover {
     cursor: pointer;
   }

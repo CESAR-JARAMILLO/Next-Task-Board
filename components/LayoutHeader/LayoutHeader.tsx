@@ -19,8 +19,8 @@ const LayoutHeader = ({opened, toggle}:LayoutHeaderProps) => {
       </Flex>
 
       <Flex className={styles.layoutHeaderRight}>
-        <Button bg={'#635FC7'} h={32} w={48} radius={24}>
-          <Text style={{fontWeight: 'bold', fontSize: '18px'}}>+</Text>
+        <Button className={styles.headerButton}>
+          <Text className={styles.headerButtonText}>+</Text>
         </Button>
         <Image className={styles.headerElipses} h={16} src={'/assets/icon-vertical-ellipsis.svg'} />
       </Flex>
