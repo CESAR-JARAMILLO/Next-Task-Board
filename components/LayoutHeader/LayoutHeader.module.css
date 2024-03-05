@@ -1,3 +1,32 @@
 .layoutHeader {
-  height: 62px;
+  height: rem(62px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 rem(16px);
+
+  .layoutHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: rem(16px);
+  }
+  
+  .layoutHeaderRight {
+    display: flex;
+    align-items: center;
+    gap: rem(16px);
+  }
+
+  .headerTitleContainer {
+    display: flex;
+    align-items: center;
+    gap: rem(8px);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .headerElipses:hover {
+    cursor: pointer;
+  }
 }
