@@ -1,6 +1,7 @@
-import { Flex, Image, Switch, Text } from "@mantine/core";
-import styles from './LayoutNavbar.module.css';
+import { Flex, Image, Text } from "@mantine/core";
 import { useState } from "react";
+import LayoutNavbarThemeToggle from "../LayoutNavbarThemeToggle/LayoutNavbarThemeToggle";
+import styles from './LayoutNavbar.module.css';
 import cx from 'clsx';
 
 const LayoutNavbar = ({}) => {
@@ -23,24 +24,20 @@ const LayoutNavbar = ({}) => {
             onClick={() => handleBoardClick(board)}
 
           >
-            <Image className={styles.icon} h={16} w={16} src={'/assets/icon-board.svg'} />
+            <Image className={styles.icon} src={'/assets/icon-board.svg'} />
             <Text>{board}</Text>
           </Flex>
         ))}
         <Flex className={styles.navbarCreateBoard}>
-          <Image h={16} w={16} src={'/assets/icon-board.svg'} />
+          <Image src={'/assets/icon-board.svg'} />
           <Text className={styles.navbarCreateBoardText}>+ Create New Board</Text>
         </Flex>
       </Flex>
 
       <Flex className={styles.navbarBottom}>
-        <Flex className={styles.navbarThemeToggle}>
-          <Image h={16} w={16} src={'/assets/icon-light-theme.svg'} />
-          <Switch defaultChecked />
-          <Image h={16} w={16} src={'/assets/icon-dark-theme.svg'} />
-        </Flex>
+        <LayoutNavbarThemeToggle />
         <Flex className={styles.hideSidebar}>
-          <Image h={16} w={16} src={'/assets/icon-hide-sidebar.svg'} />
+          <Image src={'/assets/icon-hide-sidebar.svg'} />
           <Text className={styles.hideSidebarText}>Hide Sidebar</Text>
         </Flex>
       </Flex>

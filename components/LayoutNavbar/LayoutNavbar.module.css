@@ -26,6 +26,10 @@
     gap: rem(12px);
     padding-left: rem(24px);
     margin-right: rem(20px);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .selected {
@@ -60,18 +64,6 @@
     display: flex;
     flex-direction: column;
     gap: rem(16px);
-  }
-
-  .navbarThemeToggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: rem(12px);
-    height: rem(48px);
-    padding: 0 rem(56px);
-    margin: 0 rem(12px);
-    border-radius: rem(8px);
-    background-color: #F4F7FD;
   }
 
   .hideSidebar {

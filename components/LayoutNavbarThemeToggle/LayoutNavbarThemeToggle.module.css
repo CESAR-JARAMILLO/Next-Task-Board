@@ -1,0 +1,15 @@
+.navbarThemeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: rem(12px);
+  height: rem(48px);
+  padding: 0 rem(56px);
+  margin: 0 rem(12px);
+  border-radius: rem(8px);
+  background-color: #F4F7FD;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

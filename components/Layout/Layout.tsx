@@ -1,6 +1,6 @@
 'use client';
 
-import { AppShell, Burger } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import LayoutHeader from '../LayoutHeader/LayoutHeader';
 import LayoutNavbar from '../LayoutNavbar/LayoutNavbar';
