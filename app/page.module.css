@@ -1,3 +1,4 @@
 .main {
-  background-color: dark-light(var(--light-grey-bg), var(--dark-grey-bg));
+  background-color: light-dark(var(--light-grey-bg), var(--dark-grey-bg));
+  min-height: 92vh;
 }

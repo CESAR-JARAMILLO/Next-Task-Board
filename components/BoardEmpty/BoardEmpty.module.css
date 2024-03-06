@@ -1,0 +1,35 @@
+.boardEmptyMain {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .boardEmptyCenter {
+    max-width: rem(344px);
+    padding: 0 rem(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: rem(26px);
+
+    @mixin larger-than $mantine-breakpoint-md {
+      max-width: rem(460px);
+    }
+
+    @mixin larger-than $mantine-breakpoint-lg {
+      max-width: rem(494px);
+    }
+  }
+
+  .boardEmptyText {
+    color: var(--medium-grey);
+  }
+
+  .boardEmptyButton {
+    border-radius: rem(24px);
+    width: rem(174px);
+    height: rem(48px);
+  }
+}

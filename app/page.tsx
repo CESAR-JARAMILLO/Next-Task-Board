@@ -1,11 +1,10 @@
-import { Title } from "@mantine/core";
 import styles from "./page.module.css";
-import 'server-only'
+import BoardEmpty from "@/components/BoardEmpty/BoardEmpty";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Title>Server Component</Title>
+      <BoardEmpty />
     </main>
   );
 }
