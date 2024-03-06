@@ -7,9 +7,18 @@
   padding: 0 rem(56px);
   margin: 0 rem(12px);
   border-radius: rem(8px);
-  background-color: #F4F7FD;
+  background-color: light-dark(#F4F7FD, #20212C);
+  }
 
-  &:hover {
-    cursor: pointer;
+  .themeToggleSwitch {
+    color: var(--primary-color);
+    
+    &:hover {
+      cursor: pointer;
+  }
+
+  .themeToggleTrack {
+    background-color: var(--primary-color);
+    border: var(--primary-color);
   }
 }

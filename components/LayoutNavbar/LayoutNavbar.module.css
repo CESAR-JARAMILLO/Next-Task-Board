@@ -1,9 +1,11 @@
 .layoutNav {
+  background-color: light-dark(#FFF, #2B2C37);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: rem(32px) 0;
   height: 100%;
+  border: 1px solid light-dark(#FFF, #2B2C37);
 
   .navbarTop {
     display: flex;
@@ -15,7 +17,7 @@
     font-size: rem(12px);
     font-weight: bold;
     letter-spacing: rem(2.4px);
-    color: #635FC7;
+    color: var(--primary-color);
     margin-left: rem(24px);
   }
 
@@ -32,15 +34,18 @@
     }
   }
 
+  .icon {
+    filter: brightness(0.70);
+  }
+
   .selected {
     color: #FFF;
     font-weight: bold;
-    background-color: #635FC7;
+    background-color: var(--primary-color);
     border-radius: 0 rem(24px) rem(24px) 0;
 
-    &.iconPath {
-      color: #FFF !important;
-      background-color: #fff !important;
+    .icon {
+      filter: brightness(1);
     }
   }
 
@@ -56,7 +61,7 @@
   }
 
   .navbarCreateBoardText {
-    color: #635FC7;
+    color: var(--primary-color);
     font-weight: bold;
   }
 

@@ -19,7 +19,10 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
       </Flex>
 
       <Flex className={styles.layoutHeaderRight}>
-        <Button className={styles.headerButton}>
+        <Button
+          className={styles.headerButton}
+          color='#635FC7'
+        >
           <Text className={styles.headerButtonText}>+</Text>
         </Button>
         <Image className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} />

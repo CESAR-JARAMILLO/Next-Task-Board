@@ -7,13 +7,16 @@ const LayoutNavbarThemeToggle = () => {
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 
   return (
-    <Flex 
-      className={styles.navbarThemeToggle} 
-      onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')} 
-    >
+    <Flex className={styles.navbarThemeToggle} >
       <Image src={'/assets/icon-light-theme.svg'} />
-      <Switch 
+      <Switch
+
+        className={styles.themeToggleSwitch}
+        classNames={{
+          track: styles.themeToggleTrack,
+        }}
         checked={computedColorScheme === 'dark'}
+        onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
       />
       <Image src={'/assets/icon-dark-theme.svg'} />
     </Flex>

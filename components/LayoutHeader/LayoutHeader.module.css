@@ -1,4 +1,5 @@
 .layoutHeader {
+  background-color: light-dark(#FFF, #2B2C37);
   height: rem(62px);
   display: flex;
   align-items: center;
@@ -30,7 +31,6 @@
     height: rem(32px);
     width: rem(48px);
     border-radius: rem(24px);
-    background-color: '#635FC7';
   }
 
   .headerButtonText {
