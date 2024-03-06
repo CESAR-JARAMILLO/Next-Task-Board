@@ -1,0 +1,3 @@
+.main {
+  background-color: dark-light(var(--light-grey-bg), var(--dark-grey-bg));
+}
