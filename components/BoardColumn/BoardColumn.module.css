@@ -1,0 +1,18 @@
+.boardColumn {
+  display: flex;
+  flex-direction: column;
+  gap: rem(20px);
+
+  .columnTaskType {
+    display: flex;
+    align-items: center;
+    gap: rem(12px);
+  }
+
+  .taskTypeCircle {
+    height: rem(12px);
+    width: rem(12px);
+    border-radius: 50%;
+    background-color: var(--todo-circle);
+  }
+}
