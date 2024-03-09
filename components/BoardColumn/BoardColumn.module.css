@@ -1,18 +1,38 @@
 .boardColumn {
   display: flex;
+  justify-content: center;
+}
+
+.columnContent {
+  display: flex;
   flex-direction: column;
   gap: rem(20px);
-
-  .columnTaskType {
-    display: flex;
-    align-items: center;
-    gap: rem(12px);
-  }
-
-  .taskTypeCircle {
-    height: rem(12px);
-    width: rem(12px);
-    border-radius: 50%;
-    background-color: var(--todo-circle);
-  }
+  margin: 0 auto;
 }
+
+.columnTaskType {
+  display: flex;
+  align-items: center;
+  gap: rem(12px);
+}
+
+.taskTypeCircle {
+  height: rem(12px);
+  width: rem(12px);
+  border-radius: 50%;
+  background-color: var(--todo-circle);
+}
+
+/* Tablet sizes (Assuming 768px is your breakpoint for tablet sizes) */
+/* @media (min-width: 768px) {
+  .boardColumn {
+
+  }
+} */
+
+/* Desktop sizes (Assuming 1024px is your breakpoint for desktop sizes) */
+/* @media (min-width: 1024px) {
+  .boardColumn {
+
+  }
+} */

@@ -1,5 +1,5 @@
 .columnTaskCard {
-  max-width: rem(300px);
+  width: rem(300px);
   background-color: light-dark(#FFF, var(--dark-grey));
   display: flex;
   flex-direction: column;
