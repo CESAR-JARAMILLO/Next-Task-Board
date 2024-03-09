@@ -1,10 +1,19 @@
+import Board from "@/components/Board/Board";
 import styles from "./page.module.css";
 import BoardEmpty from "@/components/BoardEmpty/BoardEmpty";
 
-export default function Home() {
+export default function Home({searchParams}: any) {
+  const taskTypes = searchParams.taskTypes;
+
   return (
     <main className={styles.main}>
-      <BoardEmpty />
+      {false ? (
+        <BoardEmpty />
+      ):(
+        <>
+        <Board taskTypes={taskTypes} />
+        </>
+      )}
     </main>
   );
 }

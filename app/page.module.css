@@ -1,4 +1,6 @@
 .main {
   background-color: light-dark(var(--light-grey-bg), var(--dark-grey-bg));
   min-height: 92vh;
+  max-width: 100vw;
+  overflow-x: scroll;
 }
