@@ -8,6 +8,8 @@
   --white-text: #FFFFFF;
 
   --todo-circle: #49C4E5;
+  --doing-circle: #8471F2;
+  --done-circle: #67E2AE;
   
   --drop-shadow: 0 rem(4px) rem(6px) 0 rgba(54, 78, 126, .15);
 }

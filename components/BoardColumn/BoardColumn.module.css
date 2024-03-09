@@ -16,11 +16,38 @@
   gap: rem(12px);
 }
 
+.todoTaskTypeCircle {
+  height: rem(12px);
+  width: rem(12px);
+  border-radius: 50%;
+  background-color: var(--todo-circle);
+}
+
+.doingTaskTypeCircle {
+  height: rem(12px);
+  width: rem(12px);
+  border-radius: 50%;
+  background-color: var(--doing-circle);
+}
+
+.doneTaskTypeCircle {
+  height: rem(12px);
+  width: rem(12px);
+  border-radius: 50%;
+  background-color: var(--done-circle);
+}
+
 .taskTypeCircle {
   height: rem(12px);
   width: rem(12px);
   border-radius: 50%;
   background-color: var(--todo-circle);
+}
+
+.taskTypeText {
+  font-size: rem(14px);
+  color: var(--medium-grey);
+  font-weight: bold;
 }
 
 /* Tablet sizes (Assuming 768px is your breakpoint for tablet sizes) */
