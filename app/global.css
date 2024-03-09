@@ -3,4 +3,11 @@
   --light-grey-bg: #F4F7FD;
   --dark-grey-bg: #20212C;
   --medium-grey: #828FA3;
+  --dark-grey: #2B2C37;
+  --black-text: #000112
+  --white-text: #FFFFFF;
+
+  --todo-circle: #49C4E5;
+  
+  --drop-shadow: 0 rem(4px) rem(6px) 0 rgba(54, 78, 126, .15);
 }
