@@ -11,3 +11,11 @@
   
   --drop-shadow: 0 rem(4px) rem(6px) 0 rgba(54, 78, 126, .15);
 }
+
+#board-column-view-control{
+  .mantine-Button-root {
+    background: light-dark(#FFF, var(--dark-grey));
+    color: light-dark(var(--black-text), var(--white-text));
+    box-shadow: var(--drop-shadow);
+  }
+}

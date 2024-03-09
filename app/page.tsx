@@ -6,7 +6,7 @@ export default function Home({searchParams}: any) {
   const taskTypes = searchParams.taskTypes;
 
   return (
-    <main className={styles.main}>
+    <main id="main" className={styles.main}>
       {false ? (
         <BoardEmpty />
       ):(
