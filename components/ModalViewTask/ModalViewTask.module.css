@@ -53,5 +53,5 @@
 }
 
 .viewTaskStatusSelectLabel {
-  color: var(--medium-grey);
+  color: light-dark(var(--medium-grey), var(--white-text));
 }
