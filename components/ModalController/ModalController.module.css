@@ -1,0 +1,8 @@
+.modalBody{
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
+.mantine-Modal-inner {
+  /* position: relative; */
+  right: 0;
+}
