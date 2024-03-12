@@ -1,0 +1,57 @@
+.viewTask {
+  padding: rem(24px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(24px);
+  margin: 0 auto;
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
+.viewTaskTitle {
+  font-size: rem(24px);
+  font-weight: bold;
+  color: var(--black-text);
+}
+
+.viewTaskDescription {
+  font-size: rem(18px);
+  color: var(--medium-grey);
+  line-height: rem(24px);
+}
+
+.viewSubtaskCountText {
+  font-size: rem(16px);
+  color: var(--medium-grey);
+  font-weight: normal;
+  margin-bottom: rem(16px);
+}
+
+.viewSubtaskContainer {
+  display: flex;
+  flex-direction: column;
+  gap: rem(8px);
+}
+
+.viewSubtaskCheckboxRoot {
+  background-color: light-dark(var(--light-grey-bg), var(--dark-grey));
+  padding: rem(14px) rem(12px);
+  border-radius: rem(4px);
+
+  .viewSubtaskCheckboxInput{
+    --checkbox-color: var(--primary-color);
+  }
+
+  .viewSubtaskCheckboxLabel {
+    color: light-dark(var(--black-text), var(--white-text));
+  }
+
+  .viewSubtaskCheckboxLabelChecked {
+    text-decoration: line-through;
+    color: var(--medium-grey);
+  }
+
+}
+
+.viewTaskStatusSelectLabel {
+  color: var(--medium-grey);
+}
