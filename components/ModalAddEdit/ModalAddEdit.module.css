@@ -1,0 +1,7 @@
+.modalAddEdit {
+  padding: rem(24px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(24px);
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
