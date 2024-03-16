@@ -1,7 +1,11 @@
+'use client'
 import { Box, Button, CloseButton, Select, Text, TextInput, Textarea, Title } from '@mantine/core'
 import styles from './ModalAddEdit.module.css'
+import { useState } from 'react'
 
 const ModalAddEdit = () => {
+  const [modalType, setModalType] = useState('board')
+
   return (
     <Box className={styles.modalAddEdit}>
       <Title className={styles.modalAddEditTitle} order={2}>
@@ -17,16 +21,18 @@ const ModalAddEdit = () => {
         placeholder="Add a description"
       />
 
-      <Textarea
-        classNames={{
-          input: styles.addEditDescriptionInput,
-          label: styles.addEditDescriptionLabel
-        }}
-        label="Description"
-        placeholder="e.g. It’s always good to take a break. This 
-        15 minute break will  recharge the batteries 
-        a little."
-      />
+      {modalType === 'task' && (
+        <Textarea
+          classNames={{
+            input: styles.addEditDescriptionInput,
+            label: styles.addEditDescriptionLabel
+          }}
+          label="Description"
+          placeholder="e.g. It’s always good to take a break. This 
+          15 minute break will  recharge the batteries 
+          a little."
+        />
+      )}
 
       <Box>
         <Title className={styles.addEditCloseInputsTitle} order={4}>
@@ -44,12 +50,14 @@ const ModalAddEdit = () => {
         <Button classNames={{root: styles.addNewButtonRoot}}>+ Add New Subtask</Button>
       </Box>
 
-      <Select
-        classNames={{ label: styles.addEditStatusSelectLabel }}
-        label="Current Status"
-        placeholder="Choose a status"
-        data={['Todo', 'Doing', 'Done']}
-      />
+      {modalType === 'task' && (  
+        <Select
+          classNames={{ label: styles.addEditStatusSelectLabel }}
+          label="Current Status"
+          placeholder="Choose a status"
+          data={['Todo', 'Doing', 'Done']}
+        />
+      )}
 
       <Button classNames={{ root: styles.submitButtonRoot }}>Create Task</Button>
     </Box>
