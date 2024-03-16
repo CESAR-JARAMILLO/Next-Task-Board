@@ -9,13 +9,19 @@ const ModalAddEdit = () => {
       </Title>
 
       <TextInput
-        className={styles.addEditTitleInput}
+        classNames={{ 
+          input : styles.addEditTitleInput,
+          label: styles.addEditTitleInputLabel
+        }}
         label="Title"
         placeholder="Add a description"
       />
 
       <Textarea
-        className={styles.addEditDescriptionInput}
+        classNames={{
+          input: styles.addEditDescriptionInput,
+          label: styles.addEditDescriptionLabel
+        }}
         label="Description"
         placeholder="e.g. It’s always good to take a break. This 
         15 minute break will  recharge the batteries 
@@ -26,31 +32,26 @@ const ModalAddEdit = () => {
         <Title className={styles.addEditCloseInputsTitle} order={4}>
           Subtasks
         </Title>
-        <Box className={styles.viewSubtaskContainer}>
+        <Box className={styles.addEditCloseInputsContainer}>
           <TextInput
-            className={styles.addEditSubtaskInput}
-            placeholder="e.g. Research competitor pricing and business models"
+            classNames={{
+              input: styles.addEditCloseInput
+            }}
+            placeholder="e.g. Research competitor pricing"
           />
           <CloseButton />
         </Box>
-        <Box className={styles.viewSubtaskContainer}>
-          <TextInput
-            className={styles.addEditSubtaskInput}
-            placeholder="e.g. Research competitor pricing and business models"
-          />
-          <CloseButton />
-        </Box>
-        <Button className={styles.addNewButton}>Add New Subtask</Button>
+        <Button classNames={{root: styles.addNewButtonRoot}}>+ Add New Subtask</Button>
       </Box>
 
       <Select
-        classNames={{ label: styles.viewTaskStatusSelectLabel }}
+        classNames={{ label: styles.addEditStatusSelectLabel }}
         label="Current Status"
         placeholder="Choose a status"
         data={['Todo', 'Doing', 'Done']}
       />
 
-      <Button className={styles.submitButton}>Create Task</Button>
+      <Button classNames={{ root: styles.submitButtonRoot }}>Create Task</Button>
     </Box>
   )
 }
