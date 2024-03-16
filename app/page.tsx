@@ -7,7 +7,7 @@ export default function Home({searchParams}: any) {
 
   return (
     <main id="main" className={styles.main}>
-      {false ? (
+      {true ? (
         <BoardEmpty />
       ):(
         <>
