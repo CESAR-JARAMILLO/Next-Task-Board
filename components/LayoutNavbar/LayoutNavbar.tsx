@@ -4,13 +4,14 @@ import LayoutNavbarThemeToggle from "../LayoutNavbarThemeToggle/LayoutNavbarThem
 import styles from './LayoutNavbar.module.css';
 import cx from 'clsx';
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
-const LayoutNavbar = ({}) => {
+const LayoutNavbar = () => {
   const [selectedBoard, setSelectedBoard] = useState<string | null>('Platform Launch');
-  const numberOfBoards = 3;
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [error, setError] = useState<any>(null);
   const supabase = createClient();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -27,17 +28,18 @@ const LayoutNavbar = ({}) => {
   
   const handleBoardClick = (board: string) => {
     setSelectedBoard(board);
+    router.push(`/?boardType=${board}`, { scroll: false});
   };  
   
   return (
     <Flex className={styles.layoutNav}>
       <Flex className={styles.navbarTop}>
         <Text className={styles.navbarHeaderText}>All Boards ({boardsData.length})</Text>
-        {boardsData.map((board, index) => (
+        {boardsData.map((board) => (
           <Flex
-            className={cx(styles.navbarBoardsTabs, { [styles.selected]: board === selectedBoard })}
+            className={cx(styles.navbarBoardsTabs, { [styles.selected]: board.name === selectedBoard })}
             key={board.id}
-            onClick={() => handleBoardClick(board)}
+            onClick={() => handleBoardClick(board.name)}
 
           >
             <Image className={styles.icon} src={'/assets/icon-board.svg'} />
