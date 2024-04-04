@@ -11,16 +11,21 @@ const BoardColumnViewControl = () => {
   const [selectedTaskTypes, setSelectedTaskTypes] = useState([data.boards[0].columns[0].name]);
 
   useEffect(() => {
-    const taskTypesQueryString = selectedTaskTypes.join('&taskTypes=');
-    router.push(`?taskTypes=${taskTypesQueryString}`, { scroll: false});
+    const taskTypesQueryString = selectedTaskTypes.join(',');
+    const queryParams = new URLSearchParams(window.location.search);
+
+    queryParams.set('taskTypes', taskTypesQueryString);
+    const updatedQueryString = queryParams.toString();
+
+    router.push(`/?${updatedQueryString}`, { scroll: false });
   }, [selectedTaskTypes, router]);
 
-  const handleToggleTaskType = (selectedTaskTypes:any) => {
-    setSelectedTaskTypes(prev => {
-      if (prev.includes(selectedTaskTypes)) {
-        return prev.filter(t => t !== selectedTaskTypes);
+  const handleToggleTaskType = (taskType:any) => {
+    setSelectedTaskTypes((prev) => {
+      if (prev.includes(taskType)) {
+        return prev.filter((t) => t !== taskType);
       } else {
-        return [...prev, selectedTaskTypes];
+        return [...prev, taskType];
       }
     });
   };
@@ -33,9 +38,9 @@ const BoardColumnViewControl = () => {
           mx={10}
           key={column.name}
           onClick={() => handleToggleTaskType(column.name)}
-          style={{ 
+          style={{
             background: selectedTaskTypes.includes(column.name) ? '#635FC7' : '',
-            color: selectedTaskTypes.includes(column.name) ? '#FFF' : '' 
+            color: selectedTaskTypes.includes(column.name) ? '#FFF' : ''
           }}
         >
           {column.name}
