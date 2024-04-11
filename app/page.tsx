@@ -2,16 +2,18 @@ import Board from "@/components/Board/Board";
 import styles from "./page.module.css";
 import BoardEmpty from "@/components/BoardEmpty/BoardEmpty";
 
-export default function Home({searchParams}: any) {
+export default async function Home({searchParams}: any) {
   const taskTypes = searchParams.taskTypes;
+  const boardID = searchParams.boardID;
+  const taskID = searchParams.taskID;
 
   return (
     <main id="main" className={styles.main}>
-      {true ? (
+      {false ? (
         <BoardEmpty />
       ):(
         <>
-        <Board taskTypes={taskTypes} />
+        <Board boardID={boardID} taskTypes={taskTypes} taskID={taskID} />
         </>
       )}
     </main>

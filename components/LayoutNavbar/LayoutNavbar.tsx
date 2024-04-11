@@ -26,9 +26,9 @@ const LayoutNavbar = () => {
     fetchBoards();
   }, []);
   
-  const handleBoardClick = (board: string) => {
-    setSelectedBoard(board);
-    router.push(`/?boardType=${board}`, { scroll: false});
+  const handleBoardClick = (boardID: string) => {
+    setSelectedBoard(boardID);
+    router.push(`/?boardID=${boardID}`, { scroll: false});
   };  
   
   return (
@@ -37,9 +37,9 @@ const LayoutNavbar = () => {
         <Text className={styles.navbarHeaderText}>All Boards ({boardsData.length})</Text>
         {boardsData.map((board) => (
           <Flex
-            className={cx(styles.navbarBoardsTabs, { [styles.selected]: board.name === selectedBoard })}
+            className={cx(styles.navbarBoardsTabs, { [styles.selected]: board.id === selectedBoard })}
             key={board.id}
-            onClick={() => handleBoardClick(board.name)}
+            onClick={() => handleBoardClick(board.id)}
 
           >
             <Image className={styles.icon} src={'/assets/icon-board.svg'} />

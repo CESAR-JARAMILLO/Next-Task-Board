@@ -1,50 +1,61 @@
-import React from 'react';
-import BoardColumnTask from '../BoardColumnTask/BoardColumnTask';
-import data from '@/data/data.json';
-import { Box, Flex, Text } from '@mantine/core';
-import styles from './BoardColumn.module.css';
+  import React from 'react';
+  import BoardColumnTask from '../BoardColumnTask/BoardColumnTask';
+  import { Box, Flex, Text } from '@mantine/core';
+  import styles from './BoardColumn.module.css';
+  import { createClient } from '@/utils/supabase/server';
 
-interface BoardColumnProps {
-  taskType: string;
-}
-
-const BoardColumn = ({ taskType }: BoardColumnProps) => {
-
-  const column = data.boards[0].columns.find(column => column.name === taskType);
-
-  const taskTypeCircleClass = () => {
-    switch(taskType) {
-      case 'Todo':
-        return styles.todoTaskTypeCircle;
-      case 'Doing':
-        return styles.doingTaskTypeCircle;
-      case 'Done':
-        return styles.doneTaskTypeCircle;
-      default:
-        return styles.taskTypeCircle;
-    }
-  };
-
-
-  if (!column) {
-    return <div>Column not found</div>;
+  interface BoardColumnProps {
+    taskType: string;
+    boardID: string | null;
+    taskID: string | null;
   }
 
-  return (
-    <>
-      <Flex className={styles.boardColumn}>
-        <Box className={styles.columnContent}>
-          <Flex className={styles.columnTaskType}>
-            <Box className={taskTypeCircleClass()} />
-            <Text className={styles.taskTypeText}>{`${taskType} (${column.tasks.length})`}</Text>
-          </Flex>
-          {column.tasks.map((task, index) => (
-            <BoardColumnTask key={index} task={task} />
-          ))}
-        </Box>
-      </Flex>
-    </>
-  );
-};
+  async function BoardColumn ({ taskType, boardID, taskID }: BoardColumnProps) {
+    const supabase = createClient();
 
-export default BoardColumn;
+    const { data: tasksData, error: taskError } = await supabase
+      .from('tasks')
+      .select('*')
+      .eq('status', taskType)
+      .eq('board_id', boardID)
+    
+      const { data: subTasksData, error: subTasksError } = await supabase
+      .from('subtasks')
+      .select('*')
+
+    const taskTypeCircleClass = () => {
+      switch(taskType) {
+        case 'Todo':
+          return styles.todoTaskTypeCircle;
+        case 'Doing':
+          return styles.doingTaskTypeCircle;
+        case 'Done':
+          return styles.doneTaskTypeCircle;
+        default:
+          return styles.taskTypeCircle;
+      }
+    };
+
+
+    if (!tasksData) {
+      return <div>Column not found</div>;
+    }
+
+    return (
+      <>
+        <Flex className={styles.boardColumn}>
+          <Box className={styles.columnContent}>
+            <Flex className={styles.columnTaskType}>
+              <Box className={taskTypeCircleClass()} />
+              <Text className={styles.taskTypeText}>{`${taskType} (${tasksData.length})`}</Text>
+            </Flex>
+            {tasksData?.map((task) => (
+              <BoardColumnTask key={task.id} task={task} subtasksData={subTasksData} />
+            ))}
+          </Box>
+        </Flex>
+      </>
+    );
+  };
+
+  export default BoardColumn;

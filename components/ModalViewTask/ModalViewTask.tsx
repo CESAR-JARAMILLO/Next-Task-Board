@@ -1,41 +1,60 @@
 'use client';
 import { Box, Checkbox, Select, Text, Title } from '@mantine/core';
 import styles from './ModalViewTask.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Subtask {
   id: number;
-  label: string;
-  checked: boolean;
+  title: string;
+  isCompleted: boolean;
 }
 
-const ModalViewTask = () => {
-  const initialSubtasks: Subtask[] = [
-    { id: 1, label: 'Research competitor pricing and business models', checked: false },
-    { id: 2, label: 'Outline a business model that works for our solution', checked: false },
-    { id: 3, label: 'Talk to potential customers about our proposed solution and ask for fair price expectancy', checked: false },
-  ];
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+}
 
-  const [subtasks, setSubtasks] = useState<Subtask[]>(initialSubtasks);
+interface ModalViewTaskProps {
+  task: Task;
+  subtasksData: Subtask[]; // Ensure this matches the type you expect
+}
+
+
+const ModalViewTask = ({task, subtasksData} : ModalViewTaskProps) => {
+  const router = useRouter();
+  const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData);
+  const completedSubtasksCount = subtasks.filter(subtask => subtask.isCompleted).length;
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    queryParams.set('taskID', task.id);
+    const updatedQueryString = queryParams.toString();
+
+    router.push(`/?${updatedQueryString}`, { scroll: false });
+  }, [ router]);
+
 
   const handleCheckboxChange = (id: number) => {
     setSubtasks(subtasks =>
       subtasks.map(subtask =>
-        subtask.id === id ? { ...subtask, checked: !subtask.checked } : subtask,
+        subtask.id === id ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask,
       ),
     );
   };
 
-  const completedSubtasksCount = subtasks.filter(subtask => subtask.checked).length;
 
   return (
     <Box id="modal-view-task" className={styles.viewTask}>
       <Title className={styles.viewTaskTitle} order={2}>
-        Research pricing points of various competitors and trial different business models
+        {task.title}
       </Title>
 
       <Text className={styles.viewTaskDescription}>
-        We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.
+        {task.description}
       </Text>
 
       <Box>
@@ -48,12 +67,12 @@ const ModalViewTask = () => {
               classNames={{
                 root: styles.viewSubtaskCheckboxRoot,
                 input: styles.viewSubtaskCheckboxInput,
-                label: subtask.checked ? styles.viewSubtaskCheckboxLabelChecked : styles.viewSubtaskCheckboxLabel,
+                label: subtask.isCompleted ? styles.viewSubtaskCheckboxLabelChecked : styles.viewSubtaskCheckboxLabel,
               }}
-              checked={subtask.checked}
+              checked={subtask.isCompleted}
               onChange={() => handleCheckboxChange(subtask.id)}
               key={subtask.id}
-              label={subtask.label}
+              label={subtask.title}
             />
           ))}
         </Box>
@@ -62,7 +81,7 @@ const ModalViewTask = () => {
       <Select
         classNames={{ label: styles.viewTaskStatusSelectLabel }}
         label="Current Status"
-        placeholder="Choose a status"
+        placeholder={task.status}
         data={['Todo', 'Doing', 'Done']}
       />
     </Box>

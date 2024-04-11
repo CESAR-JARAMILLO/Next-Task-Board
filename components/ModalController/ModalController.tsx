@@ -6,17 +6,19 @@ import styles from './ModalController.module.css'
 
 interface ModalControllerProps {
   children: React.ReactNode;
+  isOpened: boolean;
+  onClose: () => void;
 }
 
-const ModalController = ({children}:ModalControllerProps) => {
+const ModalController = ({children, isOpened, onClose}:ModalControllerProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <>
-      <Modal bg={'black'} classNames={{ body: styles.modalBody }} opened={opened} withCloseButton={false} onClose={close} centered>
+      <Modal bg={'black'} classNames={{ body: styles.modalBody }} opened={isOpened} withCloseButton={false} onClose={onClose} centered>
         {children}  
       </Modal>
 
-      <Button onClick={open}>Open modal</Button>
+      {/* <Button onClick={open}>Open modal</Button> */}
     </>
   )
 }

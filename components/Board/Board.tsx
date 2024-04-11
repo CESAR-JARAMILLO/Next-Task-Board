@@ -1,14 +1,18 @@
-import React from 'react'
-import BoardColumn from '../BoardColumn/BoardColumn'
-import { Box } from '@mantine/core'
-import styles from './Board.module.css'
-import BoardGridSegmentedControll from '../BoardColumnViewControl/BoardColumnViewControl'
+import React from 'react';
+import BoardColumn from '../BoardColumn/BoardColumn';
+import { Box } from '@mantine/core';
+import styles from './Board.module.css';
+import BoardGridSegmentedControll from '../BoardColumnViewControl/BoardColumnViewControl';
 
 interface BoardProps {
-  taskTypes: any;
+  taskTypes: string[] | null;
+  boardID: string | null;
+  taskID: string | null;
 }
 
-const Board = ({taskTypes}:BoardProps) => {
+const Board = ({ taskTypes, boardID, taskID }: BoardProps) => {
+  const defaultTaskTypes = ['Todo', 'Doing', 'Done'];
+  const displayedTaskTypes = taskTypes || defaultTaskTypes;
 
   return (
     <Box className={styles.boardContainer}>
@@ -16,18 +20,24 @@ const Board = ({taskTypes}:BoardProps) => {
         <BoardGridSegmentedControll />
       </Box>
       <Box className={styles.boardGrid}>
-        <Box>
-          {taskTypes.includes('Todo') && <BoardColumn taskType="Todo" />}
-        </Box>
-        <Box>
-          {taskTypes.includes('Doing') && <BoardColumn taskType="Doing" />}
-        </Box>
-        <Box>
-          {taskTypes.includes('Done') && <BoardColumn taskType="Done" />}
-        </Box>
+        {displayedTaskTypes.includes('Todo') && (
+          <Box>
+            <BoardColumn boardID={boardID} taskID={taskID} taskType="Todo" />
+          </Box>
+        )}
+        {displayedTaskTypes.includes('Doing') && (
+          <Box>
+            <BoardColumn boardID={boardID} taskID={taskID} taskType="Doing" />
+          </Box>
+        )}
+        {displayedTaskTypes.includes('Done') && (
+          <Box>
+            <BoardColumn boardID={boardID} taskID={taskID} taskType="Done" />
+          </Box>
+        )}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Board
+export default Board;
