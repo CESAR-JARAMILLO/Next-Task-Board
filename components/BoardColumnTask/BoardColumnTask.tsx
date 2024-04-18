@@ -35,7 +35,7 @@ const BoardColumnTask = ({ task, subtasksData }: BoardColumnTaskProps) => {
         <Text className={styles.taskCardSubtitle}>{`0 of ${subtasks.length} subtasks`}</Text>
       </Paper>
       <ModalController isOpened={opened} onClose={() => setOpened(false)}>
-        <ModalViewTask task={task} subtasksData={subtasks} />
+        <ModalViewTask task={task} opened={opened} subtasksData={subtasks} />
       </ModalController>
     </>
   );

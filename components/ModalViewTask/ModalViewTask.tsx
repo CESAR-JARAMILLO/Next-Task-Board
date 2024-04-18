@@ -1,8 +1,10 @@
 'use client';
+
 import { Box, Checkbox, Select, Text, Title } from '@mantine/core';
 import styles from './ModalViewTask.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
 
 interface Subtask {
   id: number;
@@ -19,36 +21,103 @@ interface Task {
 
 interface ModalViewTaskProps {
   task: Task;
-  subtasksData: Subtask[]; // Ensure this matches the type you expect
+  subtasksData: Subtask[];
+  opened: boolean;
 }
 
 
-const ModalViewTask = ({task, subtasksData} : ModalViewTaskProps) => {
+const ModalViewTask = ({task, subtasksData, opened} : ModalViewTaskProps) => {
   const router = useRouter();
   const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData);
+  const [status, setStatus] = useState(task.status);
   const completedSubtasksCount = subtasks.filter(subtask => subtask.isCompleted).length;
+  const supabase = createClient();
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
+    const fetchData = async () => {
+        const { data: subtasksData, error: subtasksError } = await supabase
+            .from('subtasks')
+            .select('*')
+            .eq('task_id', task.id);
 
-    queryParams.set('taskID', task.id);
-    const updatedQueryString = queryParams.toString();
+        const { data: taskData, error: taskError } = await supabase
+            .from('tasks')
+            .select('status')
+            .eq('id', task.id)
+            .single();
 
-    router.push(`/?${updatedQueryString}`, { scroll: false });
-  }, [ router]);
+        if (subtasksError) {
+            console.error('Error fetching subtasks:', subtasksError);
+        } else {
+            setSubtasks(subtasksData);
+        }
 
+        if (taskError) {
+            console.error('Error fetching task status:', taskError);
+        } else {
+            setStatus(taskData.status);
+        }
+    };
 
-  const handleCheckboxChange = (id: number) => {
-    setSubtasks(subtasks =>
-      subtasks.map(subtask =>
-        subtask.id === id ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask,
-      ),
+    if (opened) {
+        fetchData();
+    }
+}, [opened, task.id]);
+
+  useEffect(() => {
+    if (opened) {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.set('taskID', task.id);
+        const updatedQueryString = queryParams.toString();
+        router.push(`/?${updatedQueryString}`, { scroll: false });
+    } else {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.delete('taskID');
+        const updatedQueryString = queryParams.toString();
+        router.push(`/?${updatedQueryString}`, { scroll: false });
+    }
+  }, [opened, task.id]);
+
+  const handleCheckboxChange = async (id: number) => {
+    const updatedSubtasks = subtasks.map(subtask =>
+        subtask.id === id ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask
     );
+
+    const { error } = await supabase
+        .from('subtasks')
+        .update({ isCompleted: !subtasks.find(subtask => subtask.id === id)?.isCompleted })
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error updating subtask:', error);
+        alert('Failed to update task. Please try again.');
+    } else {
+        setSubtasks(updatedSubtasks);
+    }
   };
 
+  const handleStatusChange = async (newStatus: string | null) => {
+    if (newStatus === null) {
+      console.log("Selection was cleared.");
+      return;
+    }
+
+    setStatus(newStatus);
+
+    const { error } = await supabase
+      .from('tasks')
+      .update({ status: newStatus })
+      .eq('id', task.id);
+
+    if (error) {
+      console.error('Error updating task status:', error);
+      alert('Failed to update task status. Please try again.');
+      setStatus(task.status);
+    }
+  };
 
   return (
-    <Box id="modal-view-task" className={styles.viewTask}>
+    <Box  id="modal-view-task" className={styles.viewTask}>
       <Title className={styles.viewTaskTitle} order={2}>
         {task.title}
       </Title>
@@ -81,7 +150,8 @@ const ModalViewTask = ({task, subtasksData} : ModalViewTaskProps) => {
       <Select
         classNames={{ label: styles.viewTaskStatusSelectLabel }}
         label="Current Status"
-        placeholder={task.status}
+        value={status}
+        onChange={(value) => handleStatusChange(value)}
         data={['Todo', 'Doing', 'Done']}
       />
     </Box>
