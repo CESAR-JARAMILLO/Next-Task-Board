@@ -24,6 +24,7 @@ const LayoutNavbar = () => {
         setBoardsData(data);
         const initialBoardId = searchBoardId || (data.length > 0 ? data[0].id : null);
         setSelectedBoard(initialBoardId);
+        router.push(`/?boardID=${initialBoardId}`, { scroll: false});
       }
     };
 
