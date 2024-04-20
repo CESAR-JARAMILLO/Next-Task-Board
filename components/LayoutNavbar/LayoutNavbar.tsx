@@ -4,14 +4,16 @@ import LayoutNavbarThemeToggle from "../LayoutNavbarThemeToggle/LayoutNavbarThem
 import styles from './LayoutNavbar.module.css';
 import cx from 'clsx';
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LayoutNavbar = () => {
-  const [selectedBoard, setSelectedBoard] = useState<string | null>('Platform Launch');
+  const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [error, setError] = useState<any>(null);
   const supabase = createClient();
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const searchBoardId = searchParams.get('BoardID')
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -20,17 +22,20 @@ const LayoutNavbar = () => {
         setError(error);
       } else {
         setBoardsData(data);
+        const initialBoardId = searchBoardId || (data.length > 0 ? data[0].id : null);
+        setSelectedBoard(initialBoardId);
       }
     };
 
     fetchBoards();
-  }, []);
+  }, [searchBoardId]);
+
   
   const handleBoardClick = (boardID: string) => {
     setSelectedBoard(boardID);
     router.push(`/?boardID=${boardID}`, { scroll: false});
-  };  
-  
+  };
+
   return (
     <Flex className={styles.layoutNav}>
       <Flex className={styles.navbarTop}>

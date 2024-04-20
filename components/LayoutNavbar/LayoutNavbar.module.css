@@ -73,6 +73,7 @@
 
   .hideSidebar {
     display: flex;
+    display: none;
     align-items: center;
     gap: rem(10px);
     height: rem(48px);
