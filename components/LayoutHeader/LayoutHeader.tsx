@@ -16,9 +16,10 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
     <Box className={styles.layoutHeader}>
       <Flex className={styles.layoutHeaderLeft}>
         <Image src={'/assets/logo-mobile.svg'} />
+        <Text className={styles.headerLogoText}>kanban</Text>
         <Flex className={styles.headerTitleContainer} onClick={toggle}>
-          <Text>Platform Launch</Text>
-          <Image src={'/assets/icon-chevron-down.svg'} />
+          <Text className={styles.headerText}>Platform Launch</Text>
+          <Image className={styles.chevronDown} src={'/assets/icon-chevron-down.svg'} />
         </Flex>
       </Flex>
 
@@ -29,6 +30,7 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
           color='#635FC7'
         >
           <Text className={styles.headerButtonText}>+</Text>
+          <Text className={styles.headerButtonTextDesktop}>+ Add New Task</Text>
         </Button>
 
         <ModalController isOpened={opened} onClose={() => setOpened(false)}>

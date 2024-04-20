@@ -11,6 +11,10 @@
     align-items: center;
     gap: rem(16px);
   }
+
+  .headerLogoText {
+    display: none;
+  }
   
   .headerTitleContainer {
     display: flex;
@@ -19,6 +23,12 @@
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .headerText {
+    font-size: rem(18px);
+    font-weight: bold;
+    color: light-dark(#000112, #FFF);
   }
   
   .layoutHeaderRight {
@@ -37,8 +47,50 @@
     font-size: rem(18px);
     font-weight: bold;
   }
+
+  .headerButtonTextDesktop {
+    display: none;
+  }
   
   .headerElipses:hover {
     cursor: pointer;
+  }
+}
+
+@media (min-width: 768px) {
+  .layoutHeader {
+
+    .headerLogoText {
+      display: block;
+      font-size: rem(30px);
+      font-weight: bold;
+      color: light-dark(#000112, #FFF);
+      margin-right: rem(136px);
+    }
+
+    .headerText {
+      font-size: rem(24px);
+      font-weight: bold;
+      color: light-dark(#000112, #FFF);
+    }
+
+    .chevronDown {
+      display: none;
+    }
+
+    .headerButton {
+      width: rem(164px);
+      height: rem(48px);
+    }
+
+    .headerButtonText {
+      display: none;
+    }
+  
+    .headerButtonTextDesktop {
+      display: block;
+      font-weight: bold;
+      font-size: rem(15px);
+    }
   }
 }
