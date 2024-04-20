@@ -1,12 +1,13 @@
 'use client';
 
-import { Box, Checkbox, Flex, Image, Popover, Select, Text, Title } from '@mantine/core';
+import { Box, Checkbox, Flex, Image, Modal, Popover, Select, Text, Title } from '@mantine/core';
 import styles from './ModalViewTask.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import ModalController from '../ModalController/ModalController';
 import ModalAddEdit from '../ModalEditTask/ModalEditTask';
+import ModalDeleteTask from '../ModalDeleteTask/ModalDeleteTask';
 
 interface Subtask {
   id: number;
@@ -39,6 +40,7 @@ const ModalViewTask = ({
   const completedSubtasksCount = subtasks.filter(subtask => subtask.isCompleted).length;
   const supabase = createClient();
   const [modalEditIsOpened, setModalEditIsOpened] = useState(false);
+  const [modalDeleteIsOpened, setModalDeleteIsOpened] = useState(false);
   const [popoverIsOpened, setPopoverIsOpened] = useState(false);
 
   useEffect(() => {
@@ -127,7 +129,11 @@ const ModalViewTask = ({
   const handleEditClick = () => {
     setModalEditIsOpened(true);
     setPopoverIsOpened(false);
-    console.log('Edit clicked');
+}
+
+const handleDeleteClick = () => {
+    setModalDeleteIsOpened(true);
+    setPopoverIsOpened(false);
 }
 
 
@@ -147,9 +153,9 @@ const ModalViewTask = ({
             <Image onClick={() => setPopoverIsOpened(true)} className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} />
           </Popover.Target>
         
-        <Popover.Dropdown>
-          <Text onClick={handleEditClick}>Edit</Text>
-          <Text>Delete</Text>
+        <Popover.Dropdown className={styles.editDeleteDropdown}>
+          <Text className={styles.editText} onClick={handleEditClick}>Edit Task</Text>
+          <Text className={styles.deleteText} onClick={handleDeleteClick}>Delete Task</Text>
         </Popover.Dropdown>
         </Popover>
       </Flex>
@@ -158,6 +164,11 @@ const ModalViewTask = ({
         <ModalAddEdit 
         task={task}
         subtasks={subtasks}
+        />
+      </ModalController>
+      
+      <ModalController isOpened={modalDeleteIsOpened} onClose={() => setModalDeleteIsOpened(false)}>
+        <ModalDeleteTask
         />
       </ModalController>
 

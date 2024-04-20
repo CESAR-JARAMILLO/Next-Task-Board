@@ -13,6 +13,31 @@
   color: var(--black-text);
 }
 
+.editDeleteDropdown {
+  width: rem(192px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(16px);
+  justify-content: space-between;
+  padding: rem(16px);
+  background-color: light-dark(var(#FFF), var(#20212C));
+  border: none;
+}
+
+.editText {
+  color: #828FA3;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.deleteText {
+  color: #EA5555;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .viewTaskDescription {
   font-size: rem(18px);
   color: var(--medium-grey);
