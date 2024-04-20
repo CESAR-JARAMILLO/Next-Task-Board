@@ -10,9 +10,10 @@ import ModalAddEdit from '../ModalEditTask/ModalEditTask';
 import ModalDeleteTask from '../ModalDeleteTask/ModalDeleteTask';
 
 interface Subtask {
-  id: number;
+  id: any;
   title: string;
   isCompleted: boolean;
+  task_id: string;
 }
 
 interface Task {
@@ -20,6 +21,7 @@ interface Task {
   title: string;
   description: string;
   status: string;
+  subtasks: Subtask[];
 }
 
 interface ModalViewTaskProps {
