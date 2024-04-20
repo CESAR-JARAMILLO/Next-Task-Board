@@ -37,7 +37,7 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
           <ModalAddTask  />
         </ModalController>
 
-        <Image className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} />
+        {/* <Image className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} /> */}
       </Flex>
     </Box>
   );
