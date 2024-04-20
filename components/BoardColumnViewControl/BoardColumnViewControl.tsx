@@ -3,27 +3,30 @@
 import { Box, Button } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import data from '@/data/data.json';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './BoardColumnViewControl.module.css';
 
 const BoardColumnViewControl = () => {
   const router = useRouter();
-  const [selectedTaskTypes, setSelectedTaskTypes] = useState([data.boards[0].columns[0].name]);
+  const searchParams = useSearchParams()
+  const searchTaskTypes = searchParams.get('taskTypes')
+
+  const initialTaskTypes = searchTaskTypes ? searchTaskTypes.split(',') : [];
+  const [selectedTaskTypes, setSelectedTaskTypes] = useState(initialTaskTypes);
 
   useEffect(() => {
     const taskTypesQueryString = selectedTaskTypes.join(',');
-    const queryParams = new URLSearchParams(window.location.search);
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('taskTypes', taskTypesQueryString);
 
-    queryParams.set('taskTypes', taskTypesQueryString);
-    const updatedQueryString = queryParams.toString();
-
-    router.push(`/?${updatedQueryString}`, { scroll: false });
+    router.replace(newUrl.toString(),  { scroll: false });
+    
   }, [selectedTaskTypes, router]);
 
-  const handleToggleTaskType = (taskType:any) => {
-    setSelectedTaskTypes((prev) => {
+  const handleToggleTaskType = (taskType: string) => {
+    setSelectedTaskTypes((prev:any) => {
       if (prev.includes(taskType)) {
-        return prev.filter((t) => t !== taskType);
+        return prev.filter((t:any) => t !== taskType);
       } else {
         return [...prev, taskType];
       }
