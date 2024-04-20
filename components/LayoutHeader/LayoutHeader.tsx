@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Image, Text } from '@mantine/core';
 import styles from './LayoutHeader.module.css';
-import ModalAddEdit from '../ModalAddEdit/ModalAddEdit';
 import ModalController from '../ModalController/ModalController';
 import { useState } from 'react';
+import ModalAddTask from '../ModalAddTask/ModalAddTask';
 
 interface LayoutHeaderProps {
   opened: boolean;
@@ -32,7 +32,7 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
         </Button>
 
         <ModalController isOpened={opened} onClose={() => setOpened(false)}>
-          <ModalAddEdit selectedModalType={'task'}  />
+          <ModalAddTask  />
         </ModalController>
 
         <Image className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} />

@@ -2,7 +2,7 @@ import { Box, Button, Flex, Text } from '@mantine/core'
 import styles from './BoardEmpty.module.css'
 import ModalViewTask from '../ModalViewTask/ModalViewTask'
 import ModalController from '../ModalController/ModalController'
-import ModalAddEdit from '../ModalAddEdit/ModalAddEdit'
+import ModalAddEdit from '../ModalEditTask/ModalEditTask'
 
 const BoardEmpty = () => {
   return (

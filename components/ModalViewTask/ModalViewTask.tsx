@@ -1,10 +1,12 @@
 'use client';
 
-import { Box, Checkbox, Select, Text, Title } from '@mantine/core';
+import { Box, Checkbox, Flex, Image, Popover, Select, Text, Title } from '@mantine/core';
 import styles from './ModalViewTask.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
+import ModalController from '../ModalController/ModalController';
+import ModalAddEdit from '../ModalEditTask/ModalEditTask';
 
 interface Subtask {
   id: number;
@@ -26,12 +28,18 @@ interface ModalViewTaskProps {
 }
 
 
-const ModalViewTask = ({task, subtasksData, opened} : ModalViewTaskProps) => {
+const ModalViewTask = ({
+  task,
+  subtasksData,
+  opened
+}: ModalViewTaskProps) => {
   const router = useRouter();
   const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData);
   const [status, setStatus] = useState(task.status);
   const completedSubtasksCount = subtasks.filter(subtask => subtask.isCompleted).length;
   const supabase = createClient();
+  const [modalEditIsOpened, setModalEditIsOpened] = useState(false);
+  const [popoverIsOpened, setPopoverIsOpened] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,11 +124,42 @@ const ModalViewTask = ({task, subtasksData, opened} : ModalViewTaskProps) => {
     }
   };
 
+  const handleEditClick = () => {
+    setModalEditIsOpened(true);
+    setPopoverIsOpened(false);
+    console.log('Edit clicked');
+}
+
+
   return (
     <Box  id="modal-view-task" className={styles.viewTask}>
-      <Title className={styles.viewTaskTitle} order={2}>
-        {task.title}
-      </Title>
+      <Flex align={'center'} justify={'space-between'}>
+        <Title className={styles.viewTaskTitle} order={2}>
+          {task.title}
+        </Title>
+
+        <Popover
+          opened={popoverIsOpened}
+          width={192}
+          onClose={() => setPopoverIsOpened(false)}
+        >
+          <Popover.Target>
+            <Image onClick={() => setPopoverIsOpened(true)} className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} />
+          </Popover.Target>
+        
+        <Popover.Dropdown>
+          <Text onClick={handleEditClick}>Edit</Text>
+          <Text>Delete</Text>
+        </Popover.Dropdown>
+        </Popover>
+      </Flex>
+
+      <ModalController isOpened={modalEditIsOpened} onClose={() => setModalEditIsOpened(false)}>
+        <ModalAddEdit 
+        task={task}
+        subtasks={subtasks}
+        />
+      </ModalController>
 
       <Text className={styles.viewTaskDescription}>
         {task.description}

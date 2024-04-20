@@ -48,7 +48,7 @@
 }
 
 .addEditCloseInput {
-  min-width: rem(264px);
+  min-width: rem(330px);
   --input-bd-focus: var(--primary-color);
 }
 

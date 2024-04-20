@@ -1,0 +1,78 @@
+.modalAddEdit {
+  padding: rem(24px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(24px);
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
+.modalAddEditTitle {
+  font-size: rem(24px);
+  font-weight: bold;
+  color: var(--black-text);
+}
+
+.addEditTitleInputLabel {
+  color: light-dark(var(--medium-grey), #FFF) ;
+}
+
+.addEditTitleInput {
+  --input-bd-focus: var(--primary-color);
+}
+
+.addEditDescriptionLabel {
+  color: light-dark(var(--medium-grey), #FFF) ;
+}
+
+.addEditDescriptionInput {
+  --input-bd-focus: var(--primary-color);
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.addEditCloseInputsTitle {
+  font-size: rem(15px);
+  color: light-dark(var(--medium-grey), #FFF);
+  font-weight: normal;
+  margin-bottom: rem(4px);
+}
+
+.addEditCloseInputsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem(4px);
+  margin-bottom: rem(12px);
+}
+
+.addEditCloseInput {
+  min-width: rem(330px);
+  --input-bd-focus: var(--primary-color);
+}
+
+.subtasksContainer {
+  .addNewButtonRoot {
+    width: 100%;
+    height: rem(40px);
+    border-radius: rem(20px);
+    border: none;
+    background-color: light-dark(rgba(99, 95, 199, 0.1), #FFF);
+    color: var(--primary-color);
+  }
+}
+
+
+.addEditStatusSelectLabel {
+  color: light-dark(var(--medium-grey), #FFF) ;
+}
+
+.submitButtonRoot {
+  height: rem(40px);
+  border-radius: rem(20px);
+  border: none;
+  background-color: var(--primary-color);
+  color: #FFF;
+  font-weight: bold;
+}

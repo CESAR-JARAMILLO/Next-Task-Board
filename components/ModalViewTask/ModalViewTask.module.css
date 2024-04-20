@@ -43,15 +43,27 @@
 
   .viewSubtaskCheckboxLabel {
     color: light-dark(var(--black-text), var(--white-text));
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .viewSubtaskCheckboxLabelChecked {
     text-decoration: line-through;
     color: var(--medium-grey);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
 }
 
 .viewTaskStatusSelectLabel {
   color: light-dark(var(--medium-grey), var(--white-text));
+}
+
+.headerElipses:hover {
+  cursor: pointer;
 }
