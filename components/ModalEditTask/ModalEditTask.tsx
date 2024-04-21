@@ -144,7 +144,7 @@ const ModalEditTask = ({ task, subtasks }: ModalEditTaskProps) => {
         classNames={{ input: styles.addEditDescriptionInput, label: styles.addEditDescriptionLabel }}
         label="Description"
         placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
-        value={description}
+        value={description === null ? '' : description}
         onChange={(e) => setDescription(e.target.value)}
       />
 
