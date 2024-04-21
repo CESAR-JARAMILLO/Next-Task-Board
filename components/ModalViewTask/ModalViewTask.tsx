@@ -200,7 +200,10 @@ const handleDeleteClick = () => {
       </Box>
 
       <Select
-        classNames={{ label: styles.viewTaskStatusSelectLabel }}
+        classNames={{ 
+          label: styles.viewTaskStatusSelectLabel,
+          input: styles.viewTaskStatusSelectInput,
+        }}
         label="Current Status"
         value={status}
         onChange={(value) => handleStatusChange(value)}

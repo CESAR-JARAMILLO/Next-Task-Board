@@ -89,6 +89,10 @@
   color: light-dark(var(--medium-grey), var(--white-text));
 }
 
+.viewTaskStatusSelectInput {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
 .headerElipses:hover {
   cursor: pointer;
 }
