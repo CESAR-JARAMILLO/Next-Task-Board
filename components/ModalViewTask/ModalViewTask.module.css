@@ -20,7 +20,7 @@
   gap: rem(16px);
   justify-content: space-between;
   padding: rem(16px);
-  background-color: light-dark(var(#FFF), var(#20212C));
+  background-color: light-dark(var(#FFF), #2B2C37);
   border: none;
 }
 
@@ -90,6 +90,11 @@
 }
 
 .viewTaskStatusSelectInput {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+  --input-bd-focus: var(--primary-color);
+}
+
+.viewTaskStatusSelectDropdown {
   background-color: light-dark(#FFF, var(--dark-grey-bg));
 }
 

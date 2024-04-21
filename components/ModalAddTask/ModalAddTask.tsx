@@ -148,7 +148,11 @@ const ModalAddTask = () => {
       </Box>
 
       <Select
-        classNames={{ label: styles.addEditStatusSelectLabel }}
+        classNames={{
+          label: styles.addEditStatusSelectLabel,
+          input: styles.addEditStatusSelectInput,
+          dropdown: styles.addEditStatusSelectDropdown,
+        }}
         label="Current Status"
         placeholder="Choose a status"
         value={status}

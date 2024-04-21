@@ -13,11 +13,12 @@
 }
 
 .addEditTitleInputLabel {
-  color: light-dark(var(--medium-grey), #FFF) ;
+  color: light-dark(var(--medium-grey), #FFF) ;;
 }
 
 .addEditTitleInput {
   --input-bd-focus: var(--primary-color);
+  background-color: light-dark(#FFF, var(--dark-grey-bg))
 }
 
 .addEditDescriptionLabel {
@@ -26,6 +27,7 @@
 
 .addEditDescriptionInput {
   --input-bd-focus: var(--primary-color);
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
   
   &::-webkit-scrollbar {
     display: none;
@@ -50,9 +52,12 @@
 .addEditCloseInput {
   min-width: rem(330px);
   --input-bd-focus: var(--primary-color);
+  background-color: light-dark(#FFF, var(--dark-grey-bg))
 }
 
-.subtasksContainer {
+
+.modalAddEdit{
+
   .addNewButtonRoot {
     width: 100%;
     height: rem(40px);
@@ -60,19 +65,40 @@
     border: none;
     background-color: light-dark(rgba(99, 95, 199, 0.1), #FFF);
     color: var(--primary-color);
+  
+    &:hover {
+      background-color: light-dark(rgba(99, 95, 199, 0.2), rgba(255, 255, 255, 0.9));
+      color: var(--primary-color);
+    }
   }
 }
-
 
 .addEditStatusSelectLabel {
   color: light-dark(var(--medium-grey), #FFF) ;
 }
 
-.submitButtonRoot {
-  height: rem(40px);
-  border-radius: rem(20px);
-  border: none;
-  background-color: var(--primary-color);
-  color: #FFF;
-  font-weight: bold;
+.addEditStatusSelectInput {
+  --input-bd-focus: var(--primary-color);
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
+.addEditStatusSelectDropdown {
+  background-color: light-dark(#FFF, #20212C) !important;
+}
+
+
+.modalAddEdit{
+
+  .submitButtonRoot {
+    height: rem(40px);
+    border-radius: rem(20px);
+    border: none;
+    background-color: var(--primary-color);
+    color: #FFF;
+    font-weight: bold;
+  
+    &:hover {
+      background-color: #A8A4FF;
+    }
+  }
 }

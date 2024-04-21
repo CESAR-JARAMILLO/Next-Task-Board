@@ -203,6 +203,7 @@ const handleDeleteClick = () => {
         classNames={{ 
           label: styles.viewTaskStatusSelectLabel,
           input: styles.viewTaskStatusSelectInput,
+          dropdown: styles.viewTaskStatusSelectDropdown,
         }}
         label="Current Status"
         value={status}
