@@ -41,6 +41,10 @@
       return <div>Column not found</div>;
     }
 
+    if (!subTasksData) {
+      return
+    }
+
     return (
       <>
         <Flex className={styles.boardColumn}>
