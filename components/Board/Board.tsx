@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense } from 'react';
 import BoardColumn from '../BoardColumn/BoardColumn';
 import { Box } from '@mantine/core';
 import styles from './Board.module.css';
@@ -17,7 +17,9 @@ const Board = ({ taskTypes, boardID, taskID }: BoardProps) => {
   return (
     <Box className={styles.boardContainer}>
       <Box className={styles.segmentedControllContainer}>
-        <BoardGridSegmentedControll />
+        <Suspense>
+          <BoardGridSegmentedControll />
+        </Suspense>
       </Box>
       <Box className={styles.boardGrid}>
         {displayedTaskTypes.includes('Todo') && (

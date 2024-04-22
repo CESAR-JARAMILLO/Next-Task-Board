@@ -2,12 +2,12 @@
 
 import { Box, Checkbox, Flex, Image, Modal, Popover, Select, Text, Title } from '@mantine/core';
 import styles from './ModalViewTask.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import ModalController from '../ModalController/ModalController';
-import ModalAddEdit from '../ModalEditTask/ModalEditTask';
 import ModalDeleteTask from '../ModalDeleteTask/ModalDeleteTask';
+import ModalEditTask from '../ModalEditTask/ModalEditTask';
 
 interface Subtask {
   id: any;
@@ -163,10 +163,12 @@ const handleDeleteClick = () => {
       </Flex>
 
       <ModalController isOpened={modalEditIsOpened} onClose={() => setModalEditIsOpened(false)}>
-        <ModalAddEdit 
-        task={task}
-        subtasks={subtasks}
-        />
+        <Suspense>
+          <ModalEditTask
+          task={task}
+          subtasks={subtasks}
+          />
+        </Suspense>
       </ModalController>
       
       <ModalController isOpened={modalDeleteIsOpened} onClose={() => setModalDeleteIsOpened(false)}>

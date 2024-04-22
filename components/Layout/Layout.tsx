@@ -4,6 +4,7 @@ import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import LayoutHeader from '../LayoutHeader/LayoutHeader';
 import LayoutNavbar from '../LayoutNavbar/LayoutNavbar';
+import { Suspense } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -26,7 +27,9 @@ const Layout = ({children}:LayoutProps) => {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <LayoutNavbar />
+        <Suspense>
+          <LayoutNavbar />
+        </Suspense>
       </AppShell.Navbar>
 
       <AppShell.Main>
