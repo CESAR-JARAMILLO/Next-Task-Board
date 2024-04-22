@@ -6,8 +6,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
+interface ModalAddTaskProps {
+  close: () => void;
+}
 
-const ModalAddTask = () => {
+
+const ModalAddTask = ({close} : ModalAddTaskProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [subtasks, setSubtasks] = useState([{ id: Date.now(), title: '' }]);
@@ -82,8 +86,9 @@ const ModalAddTask = () => {
     }
 
     if (data && data.length > 0) {
-      console.log('Task created successfully!', data);
+      alert('Task created successfully!');
       const taskId = data[0].id;
+      close();
 
       const subtaskEntries = subtasks.map(subtask => ({
           title: subtask.title,

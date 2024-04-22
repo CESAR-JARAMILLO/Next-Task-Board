@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Image, Text } from '@mantine/core';
+import { Box, Button, Flex, Image, Modal, Text } from '@mantine/core';
 import styles from './LayoutHeader.module.css';
 import ModalController from '../ModalController/ModalController';
 import { useState, Suspense } from 'react';
 import ModalAddTask from '../ModalAddTask/ModalAddTask';
+import { useDisclosure } from '@mantine/hooks';
 
 interface LayoutHeaderProps {
   opened: boolean;
@@ -10,7 +11,8 @@ interface LayoutHeaderProps {
 }
 
 const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
-  const [opened, setOpened] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  // const [opened, setOpened] = useState(false);
 
   return (
     <Box className={styles.layoutHeader}>
@@ -25,7 +27,7 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
 
       <Flex className={styles.layoutHeaderRight}>
         <Button
-          onClick={() => setOpened(true)}
+          onClick={open}
           className={styles.headerButton}
           color='#635FC7'
         >
@@ -33,11 +35,17 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
           <Text className={styles.headerButtonTextDesktop}>+ Add New Task</Text>
         </Button>
 
-        <ModalController isOpened={opened} onClose={() => setOpened(false)}>
+        <Modal 
+          classNames={{body: styles.modalController}} 
+          opened={opened} 
+          onClose={close} 
+          centered 
+          withCloseButton={false}
+        >
           <Suspense>
-            <ModalAddTask  />
+            <ModalAddTask close={close} />
           </Suspense>
-        </ModalController>
+        </Modal>
 
         {/* <Image className={styles.headerElipses} src={'/assets/icon-vertical-ellipsis.svg'} /> */}
       </Flex>

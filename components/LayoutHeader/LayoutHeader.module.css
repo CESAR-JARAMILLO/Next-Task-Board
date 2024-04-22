@@ -57,6 +57,10 @@
   }
 }
 
+.modalController {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}
+
 @media (min-width: 768px) {
   .layoutHeader {
 
