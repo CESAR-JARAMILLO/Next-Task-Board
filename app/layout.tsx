@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import '@mantine/core/styles.css';
 import'./global.css'
+import { Suspense } from 'react'
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core'
 import Layout from "@/components/Layout/Layout";
@@ -20,16 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body className={inter.className}>
-        <MantineProvider>
-          <Layout>
-            {children}
-          </Layout>
-        </MantineProvider>          
-      </body>
+      <Suspense>
+        <head>
+          <ColorSchemeScript />
+        </head>
+        <body className={inter.className}>
+          <MantineProvider>
+            <Layout>
+              {children}
+            </Layout>
+          </MantineProvider>          
+        </body>
+      </Suspense>
     </html>
   );
 }
