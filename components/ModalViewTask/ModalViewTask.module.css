@@ -101,3 +101,7 @@
 .headerElipses:hover {
   cursor: pointer;
 }
+
+.modalController {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}

@@ -5,9 +5,9 @@ import styles from './ModalViewTask.module.css';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-import ModalController from '../ModalController/ModalController';
 import ModalDeleteTask from '../ModalDeleteTask/ModalDeleteTask';
 import ModalEditTask from '../ModalEditTask/ModalEditTask';
+import { useDisclosure } from '@mantine/hooks';
 
 interface Subtask {
   id: any;
@@ -28,22 +28,25 @@ interface ModalViewTaskProps {
   task: Task;
   subtasksData: Subtask[];
   opened: boolean;
+  close: () => void;
 }
 
 
 const ModalViewTask = ({
   task,
   subtasksData,
-  opened
+  opened,
+  close,
 }: ModalViewTaskProps) => {
   const router = useRouter();
   const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData);
   const [status, setStatus] = useState(task.status);
   const completedSubtasksCount = subtasks.filter(subtask => subtask.isCompleted).length;
   const supabase = createClient();
-  const [modalEditIsOpened, setModalEditIsOpened] = useState(false);
-  const [modalDeleteIsOpened, setModalDeleteIsOpened] = useState(false);
   const [popoverIsOpened, setPopoverIsOpened] = useState(false);
+  const [modalEditOpened, { open: openModalEdit, close: closeModalEdit }] = useDisclosure(false);
+  const [modalDeleteOpened, { open: openModalDelete, close: closeModalDelete }] = useDisclosure(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -129,12 +132,12 @@ const ModalViewTask = ({
   };
 
   const handleEditClick = () => {
-    setModalEditIsOpened(true);
+    openModalEdit();
     setPopoverIsOpened(false);
 }
 
 const handleDeleteClick = () => {
-    setModalDeleteIsOpened(true);
+    openModalDelete();
     setPopoverIsOpened(false);
 }
 
@@ -162,19 +165,35 @@ const handleDeleteClick = () => {
         </Popover>
       </Flex>
 
-      <ModalController isOpened={modalEditIsOpened} onClose={() => setModalEditIsOpened(false)}>
+      <Modal 
+        classNames={{body: styles.modalController}}
+        opened={modalEditOpened} 
+        onClose={closeModalEdit}
+        centered 
+        withCloseButton={false}
+      >
         <Suspense>
           <ModalEditTask
-          task={task}
-          subtasks={subtasks}
+            task={task}
+            subtasks={subtasks}
+            closeModalEdit={closeModalEdit}
+            close={close}
           />
         </Suspense>
-      </ModalController>
+      </Modal>
       
-      <ModalController isOpened={modalDeleteIsOpened} onClose={() => setModalDeleteIsOpened(false)}>
+      <Modal 
+        classNames={{body: styles.modalController}}
+        opened={modalDeleteOpened} 
+        onClose={closeModalDelete}
+        centered 
+        withCloseButton={false}
+      >
         <ModalDeleteTask
+          closeModalDelete={closeModalDelete}
+          close={close}
         />
-      </ModalController>
+      </Modal>
 
       <Text className={styles.viewTaskDescription}>
         {task.description}

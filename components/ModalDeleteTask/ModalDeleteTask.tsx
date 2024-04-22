@@ -4,7 +4,12 @@ import { Box, Button, Text, Title } from '@mantine/core';
 import { createClient } from '@/utils/supabase/client';
 import styles from './ModalDeleteTask.module.css';
 
-const ModalDeleteTask = () => {
+interface ModalDeleteTaskProps {
+  closeModalDelete: () => void;
+  close: () => void;
+}
+
+const ModalDeleteTask = ({ closeModalDelete, close } : ModalDeleteTaskProps) => {
   const searchParams = new URLSearchParams(window.location.search);
   const searchTaskId = searchParams.get('taskID');
   const supabase = createClient();
@@ -23,7 +28,9 @@ const ModalDeleteTask = () => {
     if (error) {
       console.error('Failed to delete the task:', error.message);
     } else {
-      console.log('Task and all related subtasks have been deleted successfully!');
+      close();
+      closeModalDelete();
+      alert('Task been deleted successfully!');
     }
   };
 
@@ -41,6 +48,7 @@ const ModalDeleteTask = () => {
         </Button>
         <Button
           classNames={{root: styles.cancelButtonRoot}}
+          onClick={() => closeModalDelete()}
         >
           Cancel
         </Button>

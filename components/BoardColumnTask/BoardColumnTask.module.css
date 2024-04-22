@@ -22,3 +22,7 @@
     font-weight: semi-bold;
   }
 }
+
+.modalController {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+}

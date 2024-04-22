@@ -22,9 +22,11 @@ interface Task {
 interface ModalEditTaskProps {
   task?: Task;
   subtasks?: Subtask[];
+  closeModalEdit: () => void;
+  close: () => void;
 }
 
-const ModalEditTask = ({ task, subtasks }: ModalEditTaskProps) => {
+const ModalEditTask = ({ task, subtasks, closeModalEdit, close }: ModalEditTaskProps) => {
   const [title, setTitle] = useState(task?.title || '');
   const [description, setDescription] = useState(task?.description || '');
   const [status, setStatus] = useState<string | null>(task?.status || null);
@@ -120,6 +122,8 @@ const ModalEditTask = ({ task, subtasks }: ModalEditTaskProps) => {
       }
       console.log('Task and subtasks updated successfully!');
       alert('Task and subtasks updated successfully!');
+      close();
+      closeModalEdit();
     } catch (err) {
       console.error('Error performing subtask updates:', err);
       alert('Failed to update subtasks.');
