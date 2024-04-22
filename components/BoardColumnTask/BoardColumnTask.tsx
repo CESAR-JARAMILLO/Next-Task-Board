@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { use, useCallback, useState } from 'react';
 import { Modal ,Paper, Text } from '@mantine/core';
 import styles from './BoardColumnTask.module.css';
 import ModalViewTask from '../ModalViewTask/ModalViewTask';
@@ -30,13 +30,17 @@ interface BoardColumnTaskProps {
 const BoardColumnTask = ({ task, subtasksData }: BoardColumnTaskProps) => {
   const router = useRouter();
   const [opened, { open, close }] = useDisclosure(false);
-  const subtasks = subtasksData.filter((subtask: any) => subtask.task_id === task.id);
+  const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData.filter(subtask => subtask.task_id === task.id));
   const completedSubtasks = subtasks.filter(subtask => subtask.isCompleted).length;
 
   const handleTaskClick = () => {
     open();
     router.push(`/?taskID=${task.id}`, { scroll: false});
   }
+
+  const updateSubtasksOnClose = useCallback((updatedSubtasks: Subtask[]) => {
+    setSubtasks(updatedSubtasks.filter((subtask: Subtask) => subtask.task_id === task.id));
+  }, [task.id]);
 
   return (
     <>
@@ -47,7 +51,10 @@ const BoardColumnTask = ({ task, subtasksData }: BoardColumnTaskProps) => {
       <Modal 
         classNames={{body: styles.modalController}}
         opened={opened} 
-        onClose={close}
+        onClose={() => {
+          close();
+          updateSubtasksOnClose(subtasks);
+        }}
         centered 
         withCloseButton={false}
       >
@@ -55,7 +62,8 @@ const BoardColumnTask = ({ task, subtasksData }: BoardColumnTaskProps) => {
           task={task} 
           close={close}
           opened={opened} 
-          subtasksData={subtasks} 
+          subtasksData={subtasks}
+          updateSubtasksOnClose={updateSubtasksOnClose}
         />
       </Modal>
     </>

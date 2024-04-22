@@ -29,6 +29,7 @@ interface ModalViewTaskProps {
   subtasksData: Subtask[];
   opened: boolean;
   close: () => void;
+  updateSubtasksOnClose: (subtasks: Subtask[]) => void;
 }
 
 
@@ -37,6 +38,7 @@ const ModalViewTask = ({
   subtasksData,
   opened,
   close,
+  updateSubtasksOnClose,
 }: ModalViewTaskProps) => {
   const router = useRouter();
   const [subtasks, setSubtasks] = useState<Subtask[]>(subtasksData);
@@ -93,10 +95,24 @@ const ModalViewTask = ({
     }
   }, [opened, task.id, closeModalDelete, closeModalEdit]);
 
+  useEffect(() => {
+    console.log('updateSubtasksOnClose type:', typeof updateSubtasksOnClose);  // Should log "function"
+    if (!opened) {
+      if (typeof updateSubtasksOnClose === 'function') {
+        updateSubtasksOnClose(subtasks);
+      } else {
+        console.error('updateSubtasksOnClose is not a function, actual type:', typeof updateSubtasksOnClose);
+      }
+    }
+  }, [opened, subtasks, updateSubtasksOnClose]);
+  
+
   const handleCheckboxChange = async (id: number) => {
     const updatedSubtasks = subtasks.map(subtask =>
         subtask.id === id ? { ...subtask, isCompleted: !subtask.isCompleted } : subtask
     );
+
+    setSubtasks(updatedSubtasks);
 
     const { error } = await supabase
         .from('subtasks')
