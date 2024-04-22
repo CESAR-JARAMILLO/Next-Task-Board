@@ -80,7 +80,7 @@ const ModalViewTask = ({
 }, [opened, task.id]);
 
   useEffect(() => {
-    if (opened) {
+    if (opened || modalEditOpened || modalDeleteOpened) {
         const queryParams = new URLSearchParams(window.location.search);
         queryParams.set('taskID', task.id);
         const updatedQueryString = queryParams.toString();
@@ -91,7 +91,7 @@ const ModalViewTask = ({
         const updatedQueryString = queryParams.toString();
         router.push(`/?${updatedQueryString}`, { scroll: false });
     }
-  }, [opened, task.id]);
+  }, [opened, task.id, closeModalDelete, closeModalEdit]);
 
   const handleCheckboxChange = async (id: number) => {
     const updatedSubtasks = subtasks.map(subtask =>

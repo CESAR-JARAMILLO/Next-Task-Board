@@ -3,21 +3,24 @@
 import { Box, Button, CloseButton, Select, TextInput, Textarea, Title } from '@mantine/core';
 import styles from './ModalAddTask.module.css';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
 interface ModalAddTaskProps {
   close: () => void;
+  opened: boolean;
 }
 
 
-const ModalAddTask = ({close} : ModalAddTaskProps) => {
+const ModalAddTask = ({close, opened} : ModalAddTaskProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [subtasks, setSubtasks] = useState([{ id: Date.now(), title: '' }]);
   const [status, setStatus] = useState('');
   const [columnId, setColumnId] = useState('');
+  const [taskId, setTaskId] = useState('');
   const searchParams = useSearchParams()
+  const router = useRouter();
   const supabase = createClient();
  
   const searchBoardId = searchParams.get('boardID')
@@ -68,6 +71,11 @@ const ModalAddTask = ({close} : ModalAddTaskProps) => {
   };
 
   const handleSubmit = async () => {
+    if (title.trim() === '' || status.trim() === '') {
+      alert('Please provide a title and select a status for the task.');
+      return;
+    }
+
     const { data, error } = await supabase
       .from('tasks')
       .insert({
@@ -88,6 +96,7 @@ const ModalAddTask = ({close} : ModalAddTaskProps) => {
     if (data && data.length > 0) {
       alert('Task created successfully!');
       const taskId = data[0].id;
+      setTaskId(taskId);
       close();
 
       const subtaskEntries = subtasks.map(subtask => ({
@@ -112,6 +121,20 @@ const ModalAddTask = ({close} : ModalAddTaskProps) => {
         alert('Task created but no data returned, check database configuration.');
     }
   };
+
+  useEffect(() => {
+    if (opened) {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.set('taskID', taskId);
+        const updatedQueryString = queryParams.toString();
+        router.push(`/?${updatedQueryString}`, { scroll: false });
+    } else {
+        const queryParams = new URLSearchParams(window.location.search);
+        queryParams.delete('taskID');
+        const updatedQueryString = queryParams.toString();
+        router.push(`/?${updatedQueryString}`, { scroll: false });
+    }
+  }, [opened, taskId, close]);
 
   return (
     <Box className={styles.modalAddEdit}>

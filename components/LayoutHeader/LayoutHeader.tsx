@@ -43,7 +43,7 @@ const LayoutHeader = ({toggle}:LayoutHeaderProps) => {
           withCloseButton={false}
         >
           <Suspense>
-            <ModalAddTask close={close} />
+            <ModalAddTask close={close} opened={opened} />
           </Suspense>
         </Modal>
 
