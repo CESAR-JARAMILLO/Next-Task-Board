@@ -1,0 +1,66 @@
+.modalDeleteTask {
+  background-color: light-dark(#FFF, var(--dark-grey-bg));
+  padding: rem(32px);
+  display: flex;
+  flex-direction: column;
+  gap: rem(24px);
+}
+
+.modalTitle {
+  font-size: rem(20px);
+  font-weight: bold;
+  color: #EA5555;
+}
+
+.modalDescription {
+  font-size: rem(16px);
+  color: var(--medium-grey);
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: rem(16px);
+}
+
+.deleteButtonRoot {
+  height: rem(40px);
+  border-radius: rem(20px);
+  border: none;
+  background-color: #EA5555;
+  color: #FFF;
+  font-weight: bold;
+
+  &:hover {
+    background-color: rgba(234, 85, 85, 0.8);
+  }
+}
+
+.cancelButtonRoot {
+  width: 100%;
+  height: rem(40px);
+  border-radius: rem(20px);
+  border: none;
+  background-color: light-dark(rgba(99, 95, 199, 0.1), #FFF);
+  color: var(--primary-color);
+
+  &:hover {
+    background-color: light-dark(rgba(99, 95, 199, 0.2), rgba(255, 255, 255, 0.9));
+    color: var(--primary-color);
+  }
+}
+
+@media (min-width: 768px) {
+  .buttonsContainer {
+    flex-direction: row;
+  }
+
+  .cancelButtonRoot {
+    width: 50%;
+  }
+
+  .deleteButtonRoot {
+    width: 50%;
+  }
+}

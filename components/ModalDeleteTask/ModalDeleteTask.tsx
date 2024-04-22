@@ -1,7 +1,8 @@
 'use client';
 
-import { Box, Button, ButtonGroup, Text, Title } from '@mantine/core';
+import { Box, Button, Text, Title } from '@mantine/core';
 import { createClient } from '@/utils/supabase/client';
+import styles from './ModalDeleteTask.module.css';
 
 const ModalDeleteTask = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -27,19 +28,23 @@ const ModalDeleteTask = () => {
   };
 
   return (
-    <Box>
-      <Title order={3}>Delete this task</Title>
-      <Text>
+    <Box className={styles.modalDeleteTask}>
+      <Title className={styles.modalTitle} order={3}>Delete this task</Title>
+      <Text className={styles.modalDescription}>
         Are you sure you want to delete the ‘Build settings UI’ task and its subtasks? This action cannot be reversed.
       </Text>
-      <ButtonGroup>
-        <Button color="red" onClick={handleDelete}>
+      <Box className={styles.buttonsContainer}>
+        <Button
+          classNames={{root: styles.deleteButtonRoot}}
+          onClick={handleDelete}>
           Delete
         </Button>
-        <Button>
+        <Button
+          classNames={{root: styles.cancelButtonRoot}}
+        >
           Cancel
         </Button>
-      </ButtonGroup>
+      </Box>
     </Box>
   );
 };
