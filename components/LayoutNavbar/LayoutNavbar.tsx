@@ -1,4 +1,4 @@
-import { Flex, Image, Text } from "@mantine/core";
+import { Flex, Image, Popover, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import LayoutNavbarThemeToggle from "../LayoutNavbarThemeToggle/LayoutNavbarThemeToggle";
 import styles from './LayoutNavbar.module.css';
@@ -54,7 +54,15 @@ const LayoutNavbar = () => {
         ))}
         <Flex className={styles.navbarCreateBoard}>
           <Image src={'/assets/icon-board.svg'} />
-          <Text className={styles.navbarCreateBoardText}>+ Create New Board</Text>
+          
+          <Popover width={200} position="bottom" withArrow shadow="md">
+            <Popover.Target>
+              <Text className={styles.navbarCreateBoardText}>+ Create New Board</Text>
+            </Popover.Target>
+            <Popover.Dropdown>
+              <Text size="sm">This is disabled for demo.</Text>
+            </Popover.Dropdown>
+          </Popover>
         </Flex>
       </Flex>
 
