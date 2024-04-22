@@ -1,6 +1,6 @@
   import React from 'react';
   import BoardColumnTask from '../BoardColumnTask/BoardColumnTask';
-  import { Box, Flex, Text } from '@mantine/core';
+  import { Box, Flex, Skeleton, Text } from '@mantine/core';
   import styles from './BoardColumn.module.css';
   import { createClient } from '@/utils/supabase/server';
 
@@ -38,7 +38,13 @@
 
 
     if (!tasksData) {
-      return <div>Column not found</div>;
+      return (
+        <div>
+          {[1, 2, 3].map((_, index) => (
+            <Skeleton key={index} height={100} width={300} radius="xl" style={{ marginBottom: 20 }} />
+          ))}
+        </div>
+      );
     }
 
     if (!subTasksData) {
